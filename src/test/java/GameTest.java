@@ -34,4 +34,15 @@ class GameTest {
 
         }
     }
+
+    @Test
+    void returnSolvedResultIfMatchedNumber() {
+        game.question = "123";
+        GuessResult result = game.guess("123");
+
+        assertNotNull(result);
+        assertTrue(result.solved);
+        assertEquals(3, result.strikes);
+        assertEquals(0, result.balls);
+    }
 }
