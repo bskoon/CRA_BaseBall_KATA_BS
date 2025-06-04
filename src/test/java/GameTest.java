@@ -45,4 +45,15 @@ class GameTest {
         assertEquals(3, result.getStrikes());
         assertEquals(0, result.getBalls());
     }
+
+    @Test
+    void returnSolvedResultIfUnMatchedNumber() {
+        game.question = "123";
+        GuessResult result = game.guess("456");
+
+        assertNotNull(result);
+        assertFalse(result.isSolved());
+        assertEquals(0, result.getStrikes());
+        assertEquals(0, result.getBalls());
+    }
 }
