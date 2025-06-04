@@ -63,8 +63,7 @@ public class Game {
         int balls = 0;
         for (int idx = 0; idx < NUM_LENGTH; idx++) {
             if ((guessNumber.charAt(idx) != question.charAt(idx))
-                && (question.indexOf(guessNumber.charAt(idx)) != -1)) {
-                System.out.println(guessNumber.charAt(idx));
+                && (question.contains(String.valueOf(guessNumber.charAt(idx))))) {
                 balls++;
             }
         }
