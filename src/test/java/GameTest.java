@@ -70,7 +70,7 @@ class GameTest {
     }
 
     private void generateQuestion(String questionNumber) {
-        game.question = questionNumber;
+        game.setQuestion(questionNumber);
     }
 
     private static void assertMatchedNumber(GuessResult result, boolean solved, int strikes, int balls) {

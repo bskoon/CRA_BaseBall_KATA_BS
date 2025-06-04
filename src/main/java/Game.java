@@ -1,5 +1,9 @@
 public class Game {
-    public String question;
+    private String question;
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
 
     public GuessResult guess(String guessNumber) {
         assertIllegalArgument(guessNumber);
