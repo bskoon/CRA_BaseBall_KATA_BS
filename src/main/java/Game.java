@@ -3,28 +3,37 @@ public class Game {
 
     public GuessResult guess(String guessNumber) {
         assertIllegalArgument(guessNumber);
-        if(guessNumber.equals(question)) {
-            return new GuessResult(true, 3, 0);
-        } else if (is2Strike0Ball(guessNumber)) {
-            return new GuessResult(false, 2, 0);
-        } else if (is1Strike2Ball(guessNumber)) {
-            return new GuessResult(false, 1,2);
-        }
-        else {
-            return new GuessResult(false, 0,0);
-        }
+
+        int strikes = countStrikes(guessNumber);
+        int balls = countBalls(guessNumber);
+
+        return new GuessResult(guessSucceeded(strikes, balls), strikes, balls);
     }
 
-    private boolean is1Strike2Ball(String guessNumber) {
-        return (guessNumber.charAt(0) == question.charAt(0) && guessNumber.charAt(1) == question.charAt(2) && guessNumber.charAt(2) == question.charAt(1))
-                || (guessNumber.charAt(1) == question.charAt(1) && guessNumber.charAt(0) == question.charAt(2) && guessNumber.charAt(2) == question.charAt(0))
-                || (guessNumber.charAt(2) == question.charAt(2) && guessNumber.charAt(0) == question.charAt(1) && guessNumber.charAt(1) == question.charAt(0));
+    private static boolean guessSucceeded(int strikes, int balls) {
+        return strikes == 3 && balls == 0;
     }
 
-    private boolean is2Strike0Ball(String guessNumber) {
-        return (guessNumber.charAt(0) == question.charAt(0) && guessNumber.charAt(1) == question.charAt(1))
-                || (guessNumber.charAt(0) == question.charAt(0) && guessNumber.charAt(2) == question.charAt(2))
-                || (guessNumber.charAt(1) == question.charAt(1) && guessNumber.charAt(2) == question.charAt(2));
+    private int countStrikes(String guessNumber) {
+        int strikes = 0;
+        for (int idx = 0; idx < 3; idx++) {
+            if (guessNumber.charAt(idx) == question.charAt(idx)) {
+                strikes++;
+            }
+        }
+        return strikes;
+    }
+
+    private int countBalls(String guessNumber) {
+        int balls = 0;
+        for (int idx = 0; idx < 3; idx++) {
+            if ((guessNumber.charAt(idx) != question.charAt(idx))
+                && (question.indexOf(guessNumber.charAt(idx)) != -1)) {
+                System.out.println(guessNumber.charAt(idx));
+                balls++;
+            }
+        }
+        return balls;
     }
 
     private static void assertIllegalArgument(String guessNumber) {

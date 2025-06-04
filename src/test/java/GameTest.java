@@ -38,9 +38,13 @@ class GameTest {
     @Test
     void returnSolvedResult() {
         generateQuestion("123");
+        // 3-0
         assertMatchedNumber(game.guess("123"), true, 3, 0);
+        // 0-0
         assertMatchedNumber(game.guess("456"), false, 0, 0);
+        // 2-0
         assertMatchedNumber(game.guess("124"), false, 2, 0);
+        // 1-2
         assertMatchedNumber(game.guess("132"), false, 1, 2);
     }
 
