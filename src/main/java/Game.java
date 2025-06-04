@@ -1,3 +1,5 @@
+import java.util.IllformedLocaleException;
+
 public class Game {
     public static final int NUM_LENGTH = 3;
     private String question;
@@ -16,23 +18,38 @@ public class Game {
         return new GuessResult(guessSucceeded(strikes, balls), strikes, balls);
     }
 
-    private static void assertIllegalArgument(String guessNumber) {
-        if (guessNumber == null) {
+    private  void assertIllegalArgument(String guessNumber) {
+        if (isEmptyString(guessNumber)) {
             throw new IllegalArgumentException();
-        }
-        if (guessNumber.length() != NUM_LENGTH) {
+        };
+
+        if (!isGuessNumberLengthFit(guessNumber)) {
             throw new IllegalArgumentException();
         }
 
-        for (char number: guessNumber.toCharArray()) {
-            if (number < '0' || number > '9') {
-                throw new IllegalArgumentException();
-            }
+        if (isGuessNumberIncludeNotNumber(guessNumber)){
+            throw new IllegalArgumentException();
         }
 
         if (isDuplicatedNumber(guessNumber)) {
             throw new IllegalArgumentException();
         }
+    }
+
+    private boolean isGuessNumberIncludeNotNumber(String guessNumber) {
+        for (char number: guessNumber.toCharArray()) {
+            if (number < '0' || number > '9') {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean isGuessNumberLengthFit(String guessNumber) {
+        return guessNumber.length() == NUM_LENGTH;
+    }
+
+    private boolean isEmptyString(String guessNumber) {
+        return guessNumber == null;
     }
 
     private static boolean isDuplicatedNumber(String guessNumber) {
