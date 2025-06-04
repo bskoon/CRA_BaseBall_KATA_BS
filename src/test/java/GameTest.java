@@ -57,4 +57,10 @@ class GameTest {
         assertEquals(strikes, result.getStrikes());
         assertEquals(balls, result.getBalls());
     }
+
+    @Test
+    void returnSolvedResult2Strike0Ball() {
+        generateQuestion("123");
+        assertMatchedNumber(game.guess("124"), false, 2, 0);
+    }
 }
