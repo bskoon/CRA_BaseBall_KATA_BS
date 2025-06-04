@@ -36,15 +36,11 @@ class GameTest {
     }
 
     @Test
-    void returnSolvedResultIfMatchedNumber() {
+    void returnSolvedResult() {
         generateQuestion("123");
         assertMatchedNumber(game.guess("123"), true, 3, 0);
-    }
-
-    @Test
-    void returnSolvedResultIfUnMatchedNumber() {
-        generateQuestion("123");
         assertMatchedNumber(game.guess("456"), false, 0, 0);
+        assertMatchedNumber(game.guess("124"), false, 2, 0);
     }
 
     private void generateQuestion(String questionNumber) {
@@ -56,11 +52,5 @@ class GameTest {
         assertEquals(solved, result.isSolved());
         assertEquals(strikes, result.getStrikes());
         assertEquals(balls, result.getBalls());
-    }
-
-    @Test
-    void returnSolvedResult2Strike0Ball() {
-        generateQuestion("123");
-        assertMatchedNumber(game.guess("124"), false, 2, 0);
     }
 }
