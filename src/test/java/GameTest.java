@@ -46,6 +46,10 @@ class GameTest {
         assertMatchedNumber(game.guess("124"), false, 2, 0);
         // 1-2
         assertMatchedNumber(game.guess("132"), false, 1, 2);
+        // 1-1
+        assertMatchedNumber(game.guess("192"), false, 1, 1);
+        // 1-0
+        assertMatchedNumber(game.guess("176"), false, 1, 0);
     }
 
     private void generateQuestion(String questionNumber) {
