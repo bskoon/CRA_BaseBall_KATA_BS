@@ -3,6 +3,7 @@ public class Game {
     private String question;
 
     public void setQuestion(String question) {
+        assertIllegalArgument(question);
         this.question = question;
     }
 
@@ -16,7 +17,7 @@ public class Game {
     }
 
     private static void assertIllegalArgument(String guessNumber) {
-        if (guessNumber ==null) {
+        if (guessNumber == null) {
             throw new IllegalArgumentException();
         }
         if (guessNumber.length() != NUM_LENGTH) {
