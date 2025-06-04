@@ -1,4 +1,5 @@
 public class Game {
+    public static final int NUM_LENGTH = 3;
     private String question;
 
     public void setQuestion(String question) {
@@ -18,7 +19,7 @@ public class Game {
         if (guessNumber ==null) {
             throw new IllegalArgumentException();
         }
-        if (guessNumber.length() != 3) {
+        if (guessNumber.length() != NUM_LENGTH) {
             throw new IllegalArgumentException();
         }
 
@@ -34,18 +35,23 @@ public class Game {
     }
 
     private static boolean isDuplicatedNumber(String guessNumber) {
-        return guessNumber.charAt(0) == guessNumber.charAt(1)
-                || guessNumber.charAt(0) == guessNumber.charAt(2)
-                || guessNumber.charAt(1) == guessNumber.charAt(2);
+        for (int idx =0; idx < NUM_LENGTH; idx++) {
+            for (int checkIdx = idx+1; checkIdx < NUM_LENGTH; checkIdx++) {
+                if (guessNumber.charAt(idx) == guessNumber.charAt(checkIdx)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private static boolean guessSucceeded(int strikes, int balls) {
-        return strikes == 3 && balls == 0;
+        return strikes == NUM_LENGTH && balls == 0;
     }
 
     private int countStrikes(String guessNumber) {
         int strikes = 0;
-        for (int idx = 0; idx < 3; idx++) {
+        for (int idx = 0; idx < NUM_LENGTH; idx++) {
             if (guessNumber.charAt(idx) == question.charAt(idx)) {
                 strikes++;
             }
@@ -55,7 +61,7 @@ public class Game {
 
     private int countBalls(String guessNumber) {
         int balls = 0;
-        for (int idx = 0; idx < 3; idx++) {
+        for (int idx = 0; idx < NUM_LENGTH; idx++) {
             if ((guessNumber.charAt(idx) != question.charAt(idx))
                 && (question.indexOf(guessNumber.charAt(idx)) != -1)) {
                 System.out.println(guessNumber.charAt(idx));
